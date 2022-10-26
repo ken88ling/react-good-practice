@@ -1,13 +1,15 @@
 import "./App.css";
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
 function App() {
   const [items, setItems] = useState([]);
   const [query, setQuery] = useState("");
   const inputRef = useRef();
 
-  const filterItems = items.filter((item) =>
-    item.toLowerCase().includes(query.toLowerCase())
+  const filterItems = useMemo(
+    () =>
+      items.filter((item) => item.toLowerCase().includes(query.toLowerCase())),
+    [items, query]
   );
 
   function onSubmit(e) {
